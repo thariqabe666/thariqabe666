@@ -219,7 +219,7 @@ def writing(posts):
 <text class="lbl" x="46" y="66">Latest writing</text>
 <text x="{w-46}" y="66" text-anchor="end" fill="{WHITE}" font-size="17" font-weight="500">Substack ↗</text>
 {''.join(items)}
-<text x="46" y="{h-46}" fill="{DIM}" font-size="15" font-weight="400">IDX research notes · updated daily</text>'''
+<text x="46" y="{h-46}" fill="{DIM}" font-size="15" font-weight="400">IDX research notes</text>'''
     tile("writing", w, h, body, "Latest writing on Substack: " + "; ".join(t for _, t in posts[:3]),
          extra_defs=glow("g3", "100%", "100%", "60%", .16))
 

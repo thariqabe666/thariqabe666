@@ -15,7 +15,7 @@ text { font-family: Geist, Inter, -apple-system, 'Segoe UI', Helvetica, Arial, s
 <text class="lbl" x="46" y="66">Latest writing</text>
 <text x="554" y="66" text-anchor="end" fill="#F4F7FB" font-size="17" font-weight="500">Substack ↗</text>
 <text x="46" y="124" fill="#2F9BFF" font-size="14.5" font-weight="500">11 Sep 2026</text><text x="46" y="154" fill="#F4F7FB" font-size="21" font-weight="500" letter-spacing="-.3">Membaca Ulang Crash CUAN: Siapa yang Beli</text><text x="46" y="182" fill="#F4F7FB" font-size="21" font-weight="500" letter-spacing="-.3">Waktu Semua Orang Jual?</text><text x="46" y="244" fill="#2F9BFF" font-size="14.5" font-weight="500">09 Sep 2026</text><text x="46" y="274" fill="#F4F7FB" font-size="21" font-weight="500" letter-spacing="-.3">Lima Hari Auto Reject Atas (ARA), dan Apa</text><text x="46" y="302" fill="#F4F7FB" font-size="21" font-weight="500" letter-spacing="-.3">yang Ada di Baliknya</text>
-<text x="46" y="434" fill="#565E6B" font-size="15" font-weight="400">IDX research notes · updated daily</text>
+<text x="46" y="434" fill="#565E6B" font-size="15" font-weight="400">IDX research notes</text>
 </g>
 <rect x="10.5" y="10.5" width="579" height="459" rx="28" fill="none" stroke="#1D2128"/>
 </svg>
