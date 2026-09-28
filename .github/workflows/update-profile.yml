@@ -1,0 +1,31 @@
+name: Update profile
+
+on:
+  schedule:
+    - cron: "17 23 * * *"   # 06:17 WIB every day
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Render bento tiles (activity + latest Substack posts)
+        env:
+          # Optional PAT with read:user as PROFILE_TOKEN; the built-in token also works.
+          GH_TOKEN: ${{ secrets.PROFILE_TOKEN || secrets.GITHUB_TOKEN }}
+        run: python scripts/bento.py --user "${{ github.repository_owner }}"
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: refresh profile tiles"
+          file_pattern: assets/tiles/*.svg
