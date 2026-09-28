@@ -19,6 +19,7 @@ import datetime as dt
 import email.utils
 import html
 import json
+import math
 import os
 import random
 import re
@@ -117,25 +118,53 @@ def hero():
          extra_defs=glow("g1", "92%", "0%", "70%", .28), css=PULSE_CSS)
 
 
+def inside(x, y, ring) -> bool:
+    """Even-odd point-in-polygon test."""
+    c = False
+    for (x1, y1), (x2, y2) in zip(ring, ring[1:] + ring[:1]):
+        if (y1 > y) != (y2 > y) and x < (x2 - x1) * (y - y1) / (y2 - y1) + x1:
+            c = not c
+    return c
+
+
 def location():
+    """Dot-matrix map of Indonesia with a pin on Jakarta."""
     w, h = 400, 420
-    dots = []
-    for gy in range(0, 9):
-        for gx in range(0, 11):
-            x, y = 46 + gx * 28, 52 + gy * 24
-            dots.append(f'<circle cx="{x}" cy="{y}" r="1.6" fill="#2A303A"/>')
-    jx, jy = 46 + 6 * 28, 52 + 5 * 24
+    lon0, lon1, lat0, y0 = 94.6, 141.4, 6.4, 106   # map frame: west, east, north edge, top y
+    x0, x1 = 24, w - 24
+    k = (x1 - x0) / (lon1 - lon0)                  # px per degree, equirectangular
+    proj = lambda lon, lat: (x0 + (lon - lon0) * k, y0 + (lat0 - lat) * k)
+    rings = [[proj(*p) for p in r] for r in json.loads((Path(__file__).parent / "indonesia.json").read_text())]
+    jx, jy = proj(106.85, -6.21)
+    cx, cy, rx, ry = (x0 + x1) / 2, y0 + 64, (x1 - x0) / 2, 92
+
+    dots, p = [], 5.0
+    y = y0 - 8
+    while y < y0 + 140:
+        x = x0
+        while x <= x1:
+            if any(inside(x, y, r) for r in rings):
+                d = math.hypot(x - jx, y - jy)
+                col = "#6BB8FF" if d < 14 else ("#3E77B5" if d < 30 else "#46505F")
+                dots.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="1.7" fill="{col}"/>')
+            else:  # sea dots fade out towards the edge of an ellipse around the map
+                o = 1 - math.hypot((x - cx) / rx, (y - cy) / ry)
+                if o > .05:
+                    dots.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r=".8" fill="#262C36" opacity="{min(1, o * 1.6):.2f}"/>')
+            x += p
+        y += p
     body = f'''
 <rect width="{w}" height="{h}" fill="url(#g2)"/>
+<text class="lbl" x="46" y="66">Based in</text>
 {''.join(dots)}
-<circle class="ring" cx="{jx}" cy="{jy}" r="7" fill="none" stroke="{BLUE}" stroke-width="2"/>
-<circle cx="{jx}" cy="{jy}" r="5" fill="{BLUE}"/>
+<circle class="ring" cx="{jx:.1f}" cy="{jy:.1f}" r="6" fill="none" stroke="{BLUE}" stroke-width="2"/>
+<circle cx="{jx:.1f}" cy="{jy:.1f}" r="4.5" fill="{BLUE}" stroke="{TILE}" stroke-width="2"/>
 <text x="46" y="324" fill="{WHITE}" font-size="34" font-weight="600" letter-spacing="-1">Jakarta</text>
 <text x="46" y="358" fill="{MUTED}" font-size="18" font-weight="400">Indonesia · UTC+7</text>'''
     css = (".ring { animation: ring 2.4s ease-out infinite; transform-box: fill-box; transform-origin: center; }"
            "@keyframes ring { from { opacity:.9; transform: scale(1); } to { opacity:0; transform: scale(3.2); } }")
     tile("location", w, h, body, "Based in Jakarta, Indonesia (UTC+7)",
-         extra_defs=glow("g2", "60%", "55%", "55%", .22), css=css)
+         extra_defs=glow("g2", "22%", "38%", "50%", .20), css=css)
 
 
 def work():
