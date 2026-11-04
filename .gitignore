@@ -1,0 +1,30 @@
+# Private product notes (keep out of the public profile repo)
+PRODUCT.md
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Secrets / local env
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# Sample renders from scripts/bento.py --sample
+.tiles-preview/
