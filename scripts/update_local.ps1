@@ -21,7 +21,7 @@ try {
     if ($LASTEXITCODE) { throw "bento.py failed ($LASTEXITCODE)" }
     Remove-Item -Recurse -Force scripts\__pycache__ -ErrorAction SilentlyContinue
 
-    & $Git add assets/tiles/*.svg
+    & $Git add assets/tiles/*.svg README.md
     & $Git diff --cached --quiet
     if ($LASTEXITCODE) {
         & $Git commit -m 'chore: refresh profile tiles'
