@@ -24,6 +24,7 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import email.utils
+import hashlib
 import html
 import json
 import math
@@ -412,8 +413,29 @@ def set_alt(src: str, alt: str) -> None:
     if not README.exists():
         return
     md = README.read_text(encoding="utf-8")
-    pat = re.compile(r'(<img src="assets/tiles/' + re.escape(src) + r'"[^>]*?alt=")[^"]*(")')
+    pat = re.compile(r'(<img src="assets/tiles/' + re.escape(src) + r'(?:\?v=\w+)?"[^>]*?alt=")[^"]*(")')
     new = pat.sub(lambda m: m.group(1) + esc(alt) + m.group(2), md)
+    if new != md:
+        README.write_text(new, encoding="utf-8")
+
+
+def bust_cache() -> None:
+    """Stamp each tile URL in the README with a hash of its content.
+
+    GitHub and browsers cache the SVGs for a while; a changed URL makes a
+    changed tile show up right away, and an unchanged tile keeps its URL."""
+    if not README.exists():
+        return
+    md = README.read_text(encoding="utf-8")
+
+    def stamp(m):
+        f = TILES / m.group(1)
+        if not f.exists():
+            return m.group(0)
+        v = hashlib.sha1(f.read_bytes()).hexdigest()[:8]
+        return f'src="assets/tiles/{m.group(1)}?v={v}"'
+
+    new = re.sub(r'src="assets/tiles/([\w-]+\.svg)(?:\?v=\w+)?"', stamp, md)
     if new != md:
         README.write_text(new, encoding="utf-8")
 
@@ -461,6 +483,8 @@ def main():
         label = activity(days, a.sample)
         if live:
             set_alt("activity.svg", label)
+    if live:
+        bust_cache()
     print("tiles ->", ", ".join(sorted(p.stem for p in OUT.glob("*.svg"))))
 
 
