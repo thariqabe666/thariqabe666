@@ -142,14 +142,14 @@ HERO_LABEL = "Thariq Adinegara, AI Engineer at Kaji Kapital, building AI systems
 
 def hero():
     w, h = 800, 420
-    badge, _ = pill(46, 46, "AI Engineer · Kaji Kapital", dot=BLUE)
+    # No eyebrow pill above the name: the role is stated plainly in the footer row.
     body = f'''
 <rect x="0" y="0" width="{w}" height="{h}" fill="url(#g1)"/>
-{badge}
-<text x="44" y="196" fill="{WHITE}" font-size="76" font-weight="600" letter-spacing="-2.3">Thariq Adinegara</text>
-<text x="47" y="254" fill="{MUTED}" font-size="32" font-weight="400" letter-spacing="-.6">Building AI systems for <tspan fill="{BLUE}" font-weight="500">capital markets.</tspan></text>
+<text x="44" y="200" fill="{WHITE}" font-size="76" font-weight="600" letter-spacing="-2.3">Thariq Adinegara</text>
+<text x="47" y="258" fill="{MUTED}" font-size="32" font-weight="400" letter-spacing="-.6">Building AI systems for <tspan fill="{BLUE}" font-weight="500">capital markets.</tspan></text>
 <line x1="47" y1="318" x2="{w-47}" y2="318" stroke="{HAIR}"/>
-<text x="47" y="364" fill="{DIM}" font-size="21" font-weight="500">Data pipelines · research tooling · LLM agents</text>'''
+<text x="47" y="364" fill="{WHITE}" font-size="21" font-weight="500">AI Engineer at Kaji Kapital</text>
+<text x="{w-47}" y="364" text-anchor="end" fill="{DIM}" font-size="19" font-weight="400">Data pipelines · research tooling · LLM agents</text>'''
     tile("hero", w, h, body, HERO_LABEL, extra_defs=glow("g1", "92%", "0%", "70%", .28))
 
 

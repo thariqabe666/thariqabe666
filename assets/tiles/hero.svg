@@ -13,11 +13,11 @@ text { font-family: Geist, Inter, -apple-system, 'Segoe UI', Helvetica, Arial, s
 <g clip-path="url(#clip)">
 
 <rect x="0" y="0" width="800" height="420" fill="url(#g1)"/>
-<rect x="46.0" y="46" width="255" height="38" rx="19.0" fill="#171B22" stroke="#2A2F38"/><circle cx="68.0" cy="65.0" r="5" fill="#2F9BFF"/><text x="82.0" y="71.5" fill="#F4F7FB" font-size="18" font-weight="500">AI Engineer · Kaji Kapital</text>
-<text x="44" y="196" fill="#F4F7FB" font-size="76" font-weight="600" letter-spacing="-2.3">Thariq Adinegara</text>
-<text x="47" y="254" fill="#8B93A1" font-size="32" font-weight="400" letter-spacing="-.6">Building AI systems for <tspan fill="#2F9BFF" font-weight="500">capital markets.</tspan></text>
+<text x="44" y="200" fill="#F4F7FB" font-size="76" font-weight="600" letter-spacing="-2.3">Thariq Adinegara</text>
+<text x="47" y="258" fill="#8B93A1" font-size="32" font-weight="400" letter-spacing="-.6">Building AI systems for <tspan fill="#2F9BFF" font-weight="500">capital markets.</tspan></text>
 <line x1="47" y1="318" x2="753" y2="318" stroke="#1C2027"/>
-<text x="47" y="364" fill="#7E8796" font-size="21" font-weight="500">Data pipelines · research tooling · LLM agents</text>
+<text x="47" y="364" fill="#F4F7FB" font-size="21" font-weight="500">AI Engineer at Kaji Kapital</text>
+<text x="753" y="364" text-anchor="end" fill="#7E8796" font-size="19" font-weight="400">Data pipelines · research tooling · LLM agents</text>
 </g>
 <rect x="10.5" y="10.5" width="779" height="399" rx="28" fill="none" stroke="#2A2F38"/>
 </svg>
